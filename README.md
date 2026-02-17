@@ -28,6 +28,9 @@ Tecnologías: Java 21, Spring Boot 3.5, Spring Data JPA, Flyway (MySQL), MySQL 8
 
 ```bash
 git clone <url-del-repositorio>
+```
+
+```bash
 cd myhotel-api
 ```
 
@@ -37,6 +40,9 @@ Desde la raíz del proyecto:
 
 ```bash
 docker compose down -v
+```
+
+```bash
 docker compose up -d
 ```
 
@@ -121,7 +127,12 @@ La API queda disponible en **http://localhost:8080**. No hay `context-path` conf
 
 ### Conectarse a la base de datos desde la terminal
 
-Esta conexión sirve para entrar a MySQL y ejecutar consultas SQL directamente, se usa para realizar el **punto 2** de la prueba técnica (consultas sobre empleados, departamentos y países). Comando:
+Esta conexión sirve para entrar a MySQL y ejecutar consultas SQL directamente, se usa para realizar el **punto 2** de la prueba técnica (consultas sobre empleados, departamentos y países). 
+Primero, ubicarse en la raíz del proyecto:
+```bash
+cd myhotel-api
+```
+Luego ejecutar:
 
 ```bash
 docker exec -it backend-test-mysql mysql -u app_user -p myhotel
@@ -148,36 +159,36 @@ A continuación, las **consultas logradas por punto**:
   SELECT d.department_name AS departamento, COUNT(*) FROM departments d JOIN employees e ON d.department_id = e.department_id WHERE e.salary >= 8000 GROUP BY departamento;
 
 **Punto 3 – Empleados con salario máximo por departamento**
-SELECT d.department_name, e.*
-FROM departments d
-JOIN employees e ON d.department_id = e.department_id
-WHERE e.salary = (SELECT MAX(e2.salary) FROM employees e2 WHERE e.department_id = e2.department_id);
+- SELECT d.department_name, e.*
+  FROM departments d
+  JOIN employees e ON d.department_id = e.department_id
+  WHERE e.salary = (SELECT MAX(e2.salary) FROM employees e2 WHERE e.department_id = e2.department_id);
 
 **Punto 4 – Gerentes contratados hace más de 15 años**
-SELECT * FROM employees
-WHERE hire_date < DATE_SUB(CURRENT_DATE(), INTERVAL 15 YEAR)
-  AND (job_id LIKE '%_MAN' OR job_id LIKE '%_MGR' OR job_id LIKE '%_PRES' OR job_id LIKE '%_VP');
+- SELECT * FROM employees
+  WHERE hire_date < DATE_SUB(CURRENT_DATE(), INTERVAL 15 YEAR)
+    AND (job_id LIKE '%_MAN' OR job_id LIKE '%_MGR' OR job_id LIKE '%_PRES' OR job_id LIKE '%_VP');
 
 
 **Punto 5 – Salario promedio de departamentos con más de 10 empleados**
-SELECT d.department_name, AVG(e.salary)
-FROM employees e
-JOIN departments d ON e.department_id = d.department_id
-GROUP BY d.department_name
-HAVING COUNT(*) > 10;
+- SELECT d.department_name, AVG(e.salary)
+  FROM employees e
+  JOIN departments d ON e.department_id = d.department_id
+  GROUP BY d.department_name
+  HAVING COUNT(*) > 10;
 
 **Punto 6 – Métricas por país**
-SELECT c.country_name AS pais,
-       COUNT(*) AS total_empleados,
-       MAX(e.salary) AS salario_maximo,
-       MIN(e.salary) AS salario_minimo,
-       AVG(e.salary) AS salario_promedio,
-       AVG(TIMESTAMPDIFF(YEAR, e.hire_date, CURDATE())) AS promedio_antiguedad
-FROM employees e
-JOIN departments d ON e.department_id = d.department_id
-JOIN locations l ON l.location_id = d.location_id
-JOIN countries c ON c.country_id = l.country_id
-GROUP BY c.country_name;
+- SELECT c.country_name AS pais,
+         COUNT(*) AS total_empleados,
+         MAX(e.salary) AS salario_maximo,
+         MIN(e.salary) AS salario_minimo,
+         AVG(e.salary) AS salario_promedio,
+         AVG(TIMESTAMPDIFF(YEAR, e.hire_date, CURDATE())) AS promedio_antiguedad
+  FROM employees e
+  JOIN departments d ON e.department_id = d.department_id
+  JOIN locations l ON l.location_id = d.location_id
+  JOIN countries c ON c.country_id = l.country_id
+  GROUP BY c.country_name;
 
 Estas consultas son la base de los endpoints de **analytics HR** (`/api/v1/analytics/...`) de la API.
 
