@@ -1,0 +1,800 @@
+{
+  "info": {
+    "_postman_id": "ac5aaefe-3e04-4dde-bd61-e7a5620d051e",
+    "name": "MyHotel Backend Test API",
+    "description": "Colección de endpoints para la API de gestión de vehículos y mantenimientos",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "22660136",
+    "_collection_link": "https://go.postman.co/collection/22660136-ac5aaefe-3e04-4dde-bd61-e7a5620d051e?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "Vehicles",
+      "item": [
+        {
+          "name": "Get Vehicle by ID",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/vehicles/{{vehicleId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "vehicles",
+                "{{vehicleId}}"
+              ]
+            },
+            "description": "Obtiene un vehículo por su ID"
+          },
+          "response": [
+            {
+              "name": "Success",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/api/vehicles/1",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "vehicles",
+                    "1"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"id\": 1,\n    \"type\": \"Car\",\n    \"brand\": \"Toyota\",\n    \"model\": \"Corolla\",\n    \"year\": 2020,\n    \"plate\": \"ABC123\",\n    \"mileageKm\": 15000,\n    \"engineDisplacementCc\": 1800,\n    \"carType\": \"sedan\",\n    \"numberOfDoors\": 4,\n    \"passengerCapacity\": 5,\n    \"trunkCapacityLiters\": 470\n}"
+            }
+          ]
+        },
+        {
+          "name": "Get Vehicle by Plate",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/vehicles?plate=ABC123",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "vehicles"
+              ],
+              "query": [
+                {
+                  "key": "plate",
+                  "value": "ABC123"
+                }
+              ]
+            },
+            "description": "Obtiene un vehículo por su patente"
+          },
+          "response": []
+        },
+        {
+          "name": "List All Vehicles",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/vehicles?offset=20&limit=60",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "vehicles"
+              ],
+              "query": [
+                {
+                  "key": "offset",
+                  "value": "20",
+                  "description": "Offset para paginación"
+                },
+                {
+                  "key": "limit",
+                  "value": "60",
+                  "description": "Límite de resultados"
+                }
+              ]
+            },
+            "description": "Lista todos los vehículos con paginación"
+          },
+          "response": []
+        },
+        {
+          "name": "Search Vehicles",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/vehicles/search?offset=0&limit=20",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "vehicles",
+                "search"
+              ],
+              "query": [
+                {
+                  "key": "brand",
+                  "value": "Toyota",
+                  "description": "Filtrar por marca",
+                  "disabled": true
+                },
+                {
+                  "key": "model",
+                  "value": "Corolla",
+                  "description": "Filtrar por modelo (LIKE)",
+                  "disabled": true
+                },
+                {
+                  "key": "yearFrom",
+                  "value": "2020",
+                  "description": "Año desde",
+                  "disabled": true
+                },
+                {
+                  "key": "yearTo",
+                  "value": "2023",
+                  "description": "Año hasta",
+                  "disabled": true
+                },
+                {
+                  "key": "dtype",
+                  "value": "Car",
+                  "description": "Tipo de vehículo (Car/Truck)",
+                  "disabled": true
+                },
+                {
+                  "key": "plateLike",
+                  "value": "ABC",
+                  "description": "Búsqueda parcial por patente",
+                  "disabled": true
+                },
+                {
+                  "key": "offset",
+                  "value": "0"
+                },
+                {
+                  "key": "limit",
+                  "value": "20"
+                }
+              ]
+            },
+            "description": "Búsqueda avanzada de vehículos con múltiples filtros opcionales"
+          },
+          "response": []
+        },
+        {
+          "name": "Create Vehicle (Car)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"type\": \"Car\",\n    \"brand\": \"Toyota\",\n    \"model\": \"Corolla\",\n    \"year\": 2021,\n    \"plate\": \"ABC123\",\n    \"mileageKm\": 10000,\n    \"engineDisplacementCc\": 1800,\n    \"carType\": \"sedan\",\n    \"numberOfDoors\": 4,\n    \"passengerCapacity\": 5,\n    \"trunkCapacityLiters\": 480\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/vehicles",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "vehicles"
+              ]
+            },
+            "description": "Crea un nuevo automóvil"
+          },
+          "response": [
+            {
+              "name": "Success",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n    \"type\": \"Car\",\n    \"brand\": \"Toyota\",\n    \"model\": \"Corolla\",\n    \"year\": 2020,\n    \"plate\": \"ABC123\",\n    \"mileageKm\": 15000,\n    \"engineDisplacementCc\": 1800,\n    \"carType\": \"sedan\",\n    \"numberOfDoors\": 4,\n    \"passengerCapacity\": 5,\n    \"trunkCapacityLiters\": 470\n}"
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/api/vehicles",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "vehicles"
+                  ]
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"oid\": 1,\n    \"status\": \"OK\",\n    \"message\": \"Vehículo creado\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "Create Vehicle (Truck)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"type\": \"Truck\",\n    \"brand\": \"Volvo\",\n    \"model\": \"FH17\",\n    \"year\": 2022,\n    \"plate\": \"XYZ711\",\n    \"mileageKm\": 50000,\n    \"engineDisplacementCc\": 16000,\n    \"truckType\": \"3/4\",\n    \"loadCapacityTons\": 25,\n    \"axles\": 3\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/vehicles",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "vehicles"
+              ]
+            },
+            "description": "Crea un nuevo camión"
+          },
+          "response": []
+        },
+        {
+          "name": "Update Vehicle",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"type\": \"Car\",\n    \"brand\": \"Toyota\",\n    \"model\": \"Corolla\",\n    \"year\": 2022,\n    \"plate\": \"ABC123\",\n    \"mileageKm\": 20001,\n    \"engineDisplacementCc\": 1800,\n    \"carType\": \"sedan\",\n    \"numberOfDoors\": 4,\n    \"passengerCapacity\": 5,\n    \"trunkCapacityLiters\": 470\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/vehicles/{{vehicleId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "vehicles",
+                "{{vehicleId}}"
+              ]
+            },
+            "description": "Actualiza un vehículo existente"
+          },
+          "response": [
+            {
+              "name": "Success",
+              "originalRequest": {
+                "method": "PUT",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n    \"type\": \"Car\",\n    \"brand\": \"Toyota\",\n    \"model\": \"Corolla\",\n    \"year\": 2021,\n    \"plate\": \"ABC123\",\n    \"mileageKm\": 20000,\n    \"engineDisplacementCc\": 1800,\n    \"carType\": \"sedan\",\n    \"numberOfDoors\": 4,\n    \"passengerCapacity\": 5,\n    \"trunkCapacityLiters\": 470\n}"
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/api/vehicles/1",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "vehicles",
+                    "1"
+                  ]
+                }
+              },
+              "status": "Accepted",
+              "code": 202,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"oid\": 1,\n    \"status\": \"OK\",\n    \"message\": \"Vehículo actualizado\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "Delete Vehicle",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/vehicles/{{vehicleId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "vehicles",
+                "{{vehicleId}}"
+              ]
+            },
+            "description": "Elimina lógicamente un vehículo"
+          },
+          "response": [
+            {
+              "name": "Success",
+              "originalRequest": {
+                "method": "DELETE",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/api/vehicles/1",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "vehicles",
+                    "1"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"oid\": 1,\n    \"status\": \"OK\",\n    \"message\": \"Vehículo eliminado\"\n}"
+            }
+          ]
+        }
+      ],
+      "description": "Endpoints para gestión de vehículos"
+    },
+    {
+      "name": "Maintenances",
+      "item": [
+        {
+          "name": "List Maintenances by Vehicle",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/vehicles/{{vehicleId}}/maintenances?offset=0&limit=20",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "vehicles",
+                "{{vehicleId}}",
+                "maintenances"
+              ],
+              "query": [
+                {
+                  "key": "offset",
+                  "value": "0",
+                  "description": "Offset para paginación"
+                },
+                {
+                  "key": "limit",
+                  "value": "20",
+                  "description": "Límite de resultados"
+                }
+              ]
+            },
+            "description": "Lista los mantenimientos de un vehículo ordenados por fecha descendente"
+          },
+          "response": []
+        },
+        {
+          "name": "Get Latest Maintenance",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/vehicles/{{vehiclePlate}}/maintenances/latest",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "vehicles",
+                "{{vehiclePlate}}",
+                "maintenances",
+                "latest"
+              ]
+            },
+            "description": "Obtiene el último mantenimiento registrado para un vehículo"
+          },
+          "response": [
+            {
+              "name": "Success",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/api/vehicles/1/maintenances/latest",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "vehicles",
+                    "1",
+                    "maintenances",
+                    "latest"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"id\": 1,\n    \"vehicleId\": 1,\n    \"maintenanceAt\": \"2024-01-15T10:30:00Z\",\n    \"cost\": 50000.00,\n    \"performedBy\": \"Taller ABC\",\n    \"notes\": \"Cambio de aceite y filtros\",\n    \"currentKm\": 15000\n}"
+            }
+          ]
+        },
+        {
+          "name": "Create Maintenance",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"maintenanceAt\": \"2025-01-15T10:30:00Z\",\n    \"cost\": 50000.00,\n    \"performedBy\": \"Taller ABC\",\n    \"notes\": \"Cambio de motor (?\",\n    \"currentKm\": 30002\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/vehicles/{{vehicleId}}/maintenances",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "vehicles",
+                "{{vehicleId}}",
+                "maintenances"
+              ]
+            },
+            "description": "Crea un nuevo registro de mantenimiento para un vehículo"
+          },
+          "response": [
+            {
+              "name": "Success",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n    \"maintenanceAt\": \"2024-01-15T10:30:00Z\",\n    \"cost\": 50000.00,\n    \"performedBy\": \"Taller ABC\",\n    \"notes\": \"Cambio de aceite y filtros\",\n    \"currentKm\": 15000\n}"
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/api/vehicles/1/maintenances",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "vehicles",
+                    "1",
+                    "maintenances"
+                  ]
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"oid\": 1,\n    \"status\": \"OK\",\n    \"message\": \"Mantenimiento registrado\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "Delete Maintenance",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/vehicles/{{vehicleId}}/maintenances/{{maintenanceId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "vehicles",
+                "{{vehicleId}}",
+                "maintenances",
+                "{{maintenanceId}}"
+              ]
+            },
+            "description": "Elimina lógicamente un registro de mantenimiento"
+          },
+          "response": [
+            {
+              "name": "Success",
+              "originalRequest": {
+                "method": "DELETE",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/api/vehicles/1/maintenances/1",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "vehicles",
+                    "1",
+                    "maintenances",
+                    "1"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"oid\": 1,\n    \"status\": \"OK\",\n    \"message\": \"Mantenimiento eliminado\"\n}"
+            }
+          ]
+        }
+      ],
+      "description": "Endpoints para gestión de registros de mantenimiento"
+    },
+    {
+      "name": "APIs analiticas",
+      "item": [
+        {
+          "name": "1 - Segmentos de sueldo",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/api/v1/analytics/segmentos-sueldo",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "v1",
+                "analytics",
+                "segmentos-sueldo"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "2 - Segmentos por departamento",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/api/v1/analytics/segmentos-por-departamento",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "v1",
+                "analytics",
+                "segmentos-por-departamento"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "3 - Empleados con mayor sueldo de cada departamento",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/api/v1/analytics/empleados-max-salario-por-departamento",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "v1",
+                "analytics",
+                "empleados-max-salario-por-departamento"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "4 - Gerentes contratados hace más de 15 años",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/api/v1/analytics/gerentes-15-anios",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "v1",
+                "analytics",
+                "gerentes-15-anios"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "5 - Salario promedio de deptos con más de 10 empleados",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/api/v1/analytics/metricas-por-pais",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "v1",
+                "analytics",
+                "metricas-por-pais"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "6 - Métricas por país",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8080/api/v1/analytics/countries/stats",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "v1",
+                "analytics",
+                "countries",
+                "stats"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    }
+  ],
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "packages": {},
+        "requests": {},
+        "exec": [
+          ""
+        ]
+      }
+    },
+    {
+      "listen": "test",
+      "script": {
+        "type": "text/javascript",
+        "packages": {},
+        "requests": {},
+        "exec": [
+          ""
+        ]
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:8080"
+    },
+    {
+      "key": "vehicleId",
+      "value": "1"
+    },
+    {
+      "key": "maintenanceId",
+      "value": "1"
+    },
+    {
+      "key": "vehiclePlate",
+      "value": "",
+      "type": "default"
+    }
+  ]
+}
