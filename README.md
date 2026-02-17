@@ -28,7 +28,7 @@ Tecnologías: Java 21, Spring Boot 3.5, Spring Data JPA, Flyway (MySQL), MySQL 8
 
 ```bash
 git clone <url-del-repositorio>
-cd backend-test
+cd myhotel-api
 ```
 
 ### 2. Levantar la base de datos con Docker Compose
