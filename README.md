@@ -96,6 +96,20 @@ La API queda disponible en **http://localhost:8080**. No hay `context-path` conf
 
 ---
 
+## Datos de prueba
+
+La base de datos se crea y carga automáticamente al iniciar la aplicación mediante Flyway.  
+No es necesario importar datasets manualmente.
+
+Durante el arranque se ejecutan migraciones que:
+
+- Crean las tablas de vehículos y mantenimientos.
+- Insertan datos de prueba de vehículos y mantenimientos.
+- Importan un dataset completo de HR (employees, departments, jobs, locations, countries, regions y job_history).
+
+Esto permite ejecutar la aplicación y probar los endpoints y consultas SQL desde el primer inicio.
+
+
 ## Migraciones Flyway
 
 - **Dependencias:** `flyway-core` y `flyway-mysql` en `pom.xml`.
