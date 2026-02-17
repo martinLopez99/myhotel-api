@@ -36,6 +36,7 @@ cd myhotel-api
 Desde la raíz del proyecto:
 
 ```bash
+docker compose down -v
 docker compose up -d
 ```
 
